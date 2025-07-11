@@ -1,20 +1,24 @@
 const express = require("express");
 
 const app = express();
-app.get('/users',(req,res)=>{
-    res.send({
-        firstName:"shivani",
-        lastname:"gupta",
-        age:"27"
-    });
+app.use('/users',(req,res,next)=>{
+const token = 'xyz'; // chsnge token for error
+if(token==='xyz'){
+    next();
+}
+else {
+       throw new Error("Token invalid");
+    }
 })
-app.post('/users',(req,res)=>{
-    console.log("Saved in database");
-    res.send("Data has been saved successfully!");
-})
-app.delete('/users',(req,res)=>{
-    console.log("Deleted the users data");
-    res.send("Deleted successfully");
+app.get('/users', (req, res) => {
+    res.send("Response!");
+});
+
+app.use((err,req,res,next)=>{
+if(err){
+    console.error("Error occured!",err.message);
+    res.status(404).send("Unauthorized user");
+}
 })
 app.listen('3000', ()=>{
     console.log("Server is succesfully listening on port 3000");

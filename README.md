@@ -20,7 +20,7 @@ NamsteNodePlaylist
 
 ### userRouter
 -get/user/connections
--get/user/requests
+-get/user/requests/received
 -get/user/feed
 
 

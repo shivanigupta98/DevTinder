@@ -6,7 +6,7 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 
 
-const USER_INFO = "firstName lastName age skills gender about";
+const USER_INFO = "firstName lastName age skills gender about photoUrl";
 userRouter.get('/user/request/received', userAuth, async (req, res) => {
     try {
         const loggedInUser = req.user;
@@ -72,7 +72,7 @@ userRouter.get('/user/feed', userAuth, async (req, res) => {
             { _id: { $ne: loggedInUser._id } }]
         }).select(USER_INFO).skip(skip).limit(limit);
 
-        res.json({ feed });
+        res.json(feed);
 
     }
     catch (err) {

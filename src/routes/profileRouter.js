@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const { validateEditPassword } = require("../utils/validation");
 
 
-profileRouter.post("/profile/view", userAuth, async (req, res) => {
+profileRouter.get("/profile/view", userAuth, async (req, res) => {
     try {
         const user = req.user;
         res.send(user);

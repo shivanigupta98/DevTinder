@@ -1,5 +1,5 @@
 const validator = require('validator');
-const bcrypt= require('bcrypt');
+const bcrypt = require('bcrypt');
 
 
 const validateSignUpData = (req) => {
@@ -15,17 +15,17 @@ const validateSignUpData = (req) => {
     }
 }
 const validateEditData = (req) => {
-    const ALLOWED_EDIT_FIELDS = ['age', 'about', 'skills', 'gender','photoUrl'];
+    const ALLOWED_EDIT_FIELDS = ['firstName', 'lastName', 'age', 'about', 'skills', 'gender', 'photoUrl'];
     const isEditAllowed = Object.keys(req.body).every((field) => ALLOWED_EDIT_FIELDS.includes(field));
     return isEditAllowed;
 }
-const validateEditPassword = async (req,loggedInuser)=>{
-    const{currentPassword, newPassword} = req.body;
+const validateEditPassword = async (req, loggedInuser) => {
+    const { currentPassword, newPassword } = req.body;
     const isPasswordValid = await bcrypt.compare(currentPassword, loggedInuser.password);
-    if(!isPasswordValid){
+    if (!isPasswordValid) {
         throw new Error("Password is incorrect");
     }
-    else if(!validator.isStrongPassword(newPassword)){
+    else if (!validator.isStrongPassword(newPassword)) {
         throw new Error("Please enter a strong Password");
     }
 }

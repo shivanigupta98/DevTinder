@@ -1,4 +1,9 @@
-require('dotenv').config();
+const path = require('path');
+
+// Load .env only in development
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+}
 const express = require("express");
 const connectDB = require("./config/database");
 const app = express();

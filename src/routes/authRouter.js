@@ -12,7 +12,11 @@ authRouter.post("/signup", async (req, res) => {
         const passwordHash = await bcrypt.hash(password, 10);
         const user = new User({ firstName, lastName, email, password: passwordHash });
         const token = await user.getJWT();
-        res.cookie("token", token);
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+        });
         await user.save();
         res.send(user);
     } catch (err) {
@@ -32,7 +36,11 @@ authRouter.post("/login", async (req, res) => {
         }
         else {
             const token = await user.getJWT();
-            res.cookie("token", token);
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+            });
             res.send(user);
         }
 
@@ -42,7 +50,10 @@ authRouter.post("/login", async (req, res) => {
 });
 authRouter.post("/logout", async (req, res) => {
     res.cookie("token", null, {
-        expires: new Date(Date.now())
+        expires: new Date(Date.now()),
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
     })
     res.send("Logout successful!!");
 })

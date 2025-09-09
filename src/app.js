@@ -4,6 +4,7 @@ const path = require('path');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 }
+console.log('MONGO_URI:', process.env.MONGO_URI ? 'Loaded ✅' : 'Missing ❌');
 const express = require("express");
 const connectDB = require("./config/database");
 const app = express();

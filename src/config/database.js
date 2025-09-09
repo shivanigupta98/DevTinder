@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
+const MONGO_URI = process.env.MONGO_URI;
+
 const connectDB = async () => {
   await mongoose.connect(
-    "mongodb+srv://gshivani9516:NwUAdESOkCb4eAow@namaste-node-practice.n3mrnqf.mongodb.net/devTinder"
+    MONGO_URI
   ),{
     autoIndex: true
   };

@@ -1,13 +1,15 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
+const JWT_SECRET = process.env.JWT_SECRET;
+
 const userAuth = async (req, res, next)=>{
 //Read the token
 try {const {token} = req.cookies;
 if(!token){
 return res.status(401).send("Please Login");
 }
-const {_id} = jwt.verify(token, "Dev@Tinder24");
+const {_id} = jwt.verify(token, JWT_SECRET);
 const user = await User.findById(_id);
 if(!user){
 throw new Error("User Not Found");
